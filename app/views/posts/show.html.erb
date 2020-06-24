@@ -7,23 +7,35 @@
 
 <p><%= @post.content %></p>
 
-<ul>
+<!-- <ul>
   <% @post.comments.each do |comment| %>
     <li><%= comment.content %></li>
   <% end %>
-</ul>
+</ul> -->
 
 <ul>
   <% @post.users.each do |user| %>
-    <li><%= user.username %></li>
+    <li>
+      <%= user.username %> says:
+      <% user.comments.each do |comment| %>
+        <%= comment.content %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 
-<%= fields_for :comment, @post.comme do |f| %>
-  <%= f.text_area :content %>
-  <%= f.collection_select :user_ids, User.all, :id, :username %>
-  <%= f.fields_for :users, post.categories.build do |categories_fields| %>
-    <%= categories_fields.text_field :name %>
-  <% end %> <br>
+<p>Add a comment:</p>
 
+<%= form_for @comment do |f| %>
+  <%= f.label :content %> <br>
+  <%= f.text_area :content %> <br>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %> <br>
+
+  <%= f.fields_for :user do |user_form| %>
+    <%= user_form.label :username %> <br>
+    <%= user_form.text_field :username %> <br>
+  <% end %>
+
+  <%= f.submit %>
   <%= f.hidden_field :post_id, value: @post.id %>
+<% end %>
