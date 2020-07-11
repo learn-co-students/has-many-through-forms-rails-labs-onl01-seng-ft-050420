@@ -1,0 +1,13 @@
+
+<%= form_for @post do |f| %>
+<%= f.label :comments %>
+<%= f.text_field :comments, value: "Enter New Comment" %>
+User: (select) <%= f.collection_select :user_ids, User.all, :id, :username, include_blank: "Test"%><br>
+
+Create New User:<%= f.fields_for :users, @post.users.build do |users_fields| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%=users_fields.text_field :username %><br>
+    <% end %>
+    <%= f.submit %>
+<% end %>
+   
