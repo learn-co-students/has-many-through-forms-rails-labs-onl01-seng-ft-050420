@@ -12,9 +12,12 @@ class PostsController < ApplicationController
   end
 
   def create
+    #"post"=>{"title"=>"Title", "content"=>"Content", "category_ids"=>["", "24"], "categories_attributes"=>{"0"=>{"name"=>""}}}
     post = Post.create(post_params)
-    redirect_to post
+    redirect_to post_path(post)
   end
+
+ 
 
   private
 
