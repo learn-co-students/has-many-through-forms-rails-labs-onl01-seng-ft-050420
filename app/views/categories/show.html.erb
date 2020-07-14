@@ -1,0 +1,7 @@
+<h1>Category Show Page</h1>
+Category:
+<%= @category.name %><br>
+Posts:
+<% @category.posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>
