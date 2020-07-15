@@ -7,7 +7,7 @@
 <%= @post.content %>
 
 <% @post.comments.each do |c| %>
-    <%= c.content %>
+    <%=c.user.username if c.user%> says: <%= c.content %>
 <% end %>
 
 <% @post.all_users.each do |u| %>
@@ -16,10 +16,10 @@
 
 <%= form_for @comment do |f| %>
     <%= f.text_field :content %>
-
+    <%= f.hidden_field :post_id %>
     <%= f.collection_select :user_id, User.all, :id, :username %>
     <%= f.fields_for :user, @comment.build_user do |s| %>
-        <%= f.text_field :user %>
+        <%= s.text_field :username %>      
     <% end %>
 
     <%= f.submit %>
