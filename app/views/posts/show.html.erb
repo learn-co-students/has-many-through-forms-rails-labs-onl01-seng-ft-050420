@@ -1,1 +1,30 @@
+<h1><%= @post.title %></h1>
+<h2>Content:</h2>
+<p><%= @post.content %></p>
+<h2>Categories:</h2>
+<ul>
+    <% @post.categories.each do |category| %>
+        <li><%= link_to category.name, category_path(category), count: 1 %></li>
+    <% end %>
+</ul>
 
+<h2>Comments:</h2>
+<ol>
+    <% @post.comments.each do |comment| %>
+        <li><%= comment.content %></li>
+    <% end %>
+</ol>
+
+<h2>Users that have commented on this post:</h2>
+<ul>
+    <%= @post.uniq_comms.each do |comment| %>
+        <li><%= link_to comment.user.username, user_path(comment.user) %></li>
+    <% end %>
+</ul>
+
+<h2>Leave Comment:</h2>
+<%= form_for @comment do |f| %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.collection_check_boxes :user_id, User.all, :id, :username, include_blank: 'Any' %><br><br>
+<% end %>
