@@ -1,0 +1,3 @@
+<% @category.posts.each do |post| #usually you don't put .each unless it is plural, or you can't put an attribute after something unless it is singular %>
+<%= link_to post.title, post_path(post) %>
+<% end %>

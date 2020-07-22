@@ -3,6 +3,17 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories
   has_many :comments
   has_many :users, through: :comments
+  
+  def categories_attributes=(category_attributes)
+    category_attributes.values.each do |category_attribute|
+      
+      if !category_attribute['name'].empty?
+      #check that checks that it only runs the below lines if it is not blank
+      category = Category.find_or_create_by(category_attribute)
+      self.categories << category
+      end
+     end
+  end
 
 
 end
