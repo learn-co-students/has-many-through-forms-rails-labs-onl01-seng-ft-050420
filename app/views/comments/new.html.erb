@@ -1,0 +1,12 @@
+<h2>Add a comment:</h2>
+<%=form_for @post.comments.build do |f|%>
+<%=f.text_area :content%>
+<%=collection_select :user_id, User.all, :id, :username%>
+<%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit %><br>
+
+<%= f.fileds_for :user, User.new  do |u| %>
+   <%=u.text_field :username%>
+   <%end%>
+ 
+<%end%>
