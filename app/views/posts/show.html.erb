@@ -4,7 +4,7 @@
 <p><%=@post.content%></p>
 
 <%@post.categories.each do |p|%>
-   Category: <%=p.name%>
+   <%=p.name%>
 <%end%>
 
 <%@post.comments.each do |c|%>

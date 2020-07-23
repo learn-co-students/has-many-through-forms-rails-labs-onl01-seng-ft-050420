@@ -6,11 +6,14 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :comments
 
   def categories_attributes=(category_attributes)
+    
     category_attributes.values.each do |category_attribute|
        
-      category = Category.find_or_create_by(category_attribute)
-      if !self.categories.include?(category_ids)
-        self.categories << category
+       if !category_attribute[:name].empty?
+        category = Category.find_or_create_by(category_attribute)
+        if !self.categories.include?(category_ids)
+          self.categories << category
+        end
       end 
     end
   end 
